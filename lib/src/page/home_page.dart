@@ -57,27 +57,24 @@ class HomePage extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
 
-        final restauran = snapshot.data;
+        final List<RestaurantElement> restauran = snapshot.data;
 
-        /* if (restauran) {
-          return Center(
-            child: Text('No hay informacion'),
+        if (restauran.length == 0) {
+          return Expanded(
+            child: Center(
+                child: Text(
+              'No hay informacion',
+              style: TextStyle(fontSize: 20.0),
+            )),
           );
-        } */
+        }
 
-        return ListView.builder(
-            // itemCount: restauran.length,
-            itemBuilder: (context, i) => Dismissible(
-                key: UniqueKey(),
-                background: Container(color: Colors.red),
-                // onDismissed: (direction) => scansBloc.borraScan(scan[i].id),
-                child: ListTile(
-                  leading: Icon(Icons.cloud_queue,
-                      color: Theme.of(context).primaryColor),
-                  // title: Text(scan[i].valor),
-                  // subtitle: Text('ID: ${scan[i].id}'),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                )));
+        return Expanded(
+            child: ListView.builder(
+                itemCount: restauran.length,
+                itemBuilder: (context, i) => ListTile(
+                    leading: Icon(Icons.cake),
+                    title: Text(restauran[i].restaurant.name))));
       },
     );
   }
